@@ -62,7 +62,7 @@ class VisualizationDemo(object):
             if "instances" in predictions:
                 instances = predictions["instances"].to(self.cpu_device)
                 # instances = predictions["instances"].pred_boxes.to(self.cpu_device)
-                instances = instances.pred_boxes
+                # instances = instances.pred_boxes
                 vis_output = visualizer.draw_instance_predictions(predictions=instances)
 
         return predictions, vis_output
@@ -98,7 +98,7 @@ class VisualizationDemo(object):
             elif "instances" in predictions:
                 predictions = predictions["instances"].to(self.cpu_device)
                 # predictions = predictions["instances"].pred_boxes.to(self.cpu_device)
-                predictions = predictions.pred_boxes
+                # predictions = predictions.pred_boxes
                 vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
                 
             elif "sem_seg" in predictions:
