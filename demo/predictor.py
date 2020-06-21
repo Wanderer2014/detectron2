@@ -60,8 +60,9 @@ class VisualizationDemo(object):
                     predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
                 )
             if "instances" in predictions:
-                # instances = predictions["instances"].to(self.cpu_device)
-                instances = predictions["instances"].pred_boxes.to(self.cpu_device)
+                instances = predictions["instances"].to(self.cpu_device)
+                # instances = predictions["instances"].pred_boxes.to(self.cpu_device)
+                instances = instances.pred_boxes
                 vis_output = visualizer.draw_instance_predictions(predictions=instances)
 
         return predictions, vis_output
