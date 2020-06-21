@@ -129,6 +129,8 @@ if __name__ == "__main__":
         frames_per_second = video.get(cv2.CAP_PROP_FPS)
         num_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
         basename = os.path.basename(args.video_input)
+        
+        visualized_output = demo.run_on_video(basename)
 
         if args.output:
             if os.path.isdir(args.output):
@@ -136,9 +138,15 @@ if __name__ == "__main__":
                 output_fname = os.path.splitext(output_fname)[0] + ".mkv"
             else:
                 output_fname = args.output
-            assert not os.path.isfile(output_fname), output_fname
+                
+            visualized_output.save(output_fname)
+            
+            # assert not os.path.isfile(output_fname), output_fname
+            assert not os.path.isfile(visualized_output), visualized_output
+            
             output_file = cv2.VideoWriter(
-                filename=output_fname,
+                # filename=output_fname,
+                filename=visualized_output,
                 # some installation of opencv may not support x264 (due to its license),
                 # you can try other format (e.g. MPEG)
                 fourcc=cv2.VideoWriter_fourcc(*"x264"),
