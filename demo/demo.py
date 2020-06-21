@@ -111,6 +111,7 @@ if __name__ == "__main__":
                 cv2.imshow(WINDOW_NAME, visualized_output.get_image()[:, :, ::-1])
                 if cv2.waitKey(0) == 27:
                     break  # esc to quit
+                    
     elif args.webcam:
         assert args.input is None, "Cannot have both --input and --webcam!"
         assert args.output is None, "output not yet supported with --webcam!"
@@ -122,6 +123,7 @@ if __name__ == "__main__":
                 break  # esc to quit
         cam.release()
         cv2.destroyAllWindows()
+        
     elif args.video_input:
         video = cv2.VideoCapture(args.video_input)
         width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -130,7 +132,7 @@ if __name__ == "__main__":
         num_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
         basename = os.path.basename(args.video_input)
         
-        visualized_output = demo.run_on_video(basename)
+        # visualized_output_video = demo.run_on_video(basename)
 
         if args.output:
             if os.path.isdir(args.output):
@@ -139,14 +141,14 @@ if __name__ == "__main__":
             else:
                 output_fname = args.output
                 
-            visualized_output.save(output_fname)
+            # visualized_output_video.write(output_fname)
             
-            # assert not os.path.isfile(output_fname), output_fname
-            assert not os.path.isfile(visualized_output), visualized_output
+            assert not os.path.isfile(output_fname), output_fname
+            # assert not os.path.isfile(visualized_output), visualized_output
             
             output_file = cv2.VideoWriter(
-                # filename=output_fname,
-                filename=visualized_output,
+                filename=output_fname,               
+                # filename=visualized_output_video,
                 # some installation of opencv may not support x264 (due to its license),
                 # you can try other format (e.g. MPEG)
                 fourcc=cv2.VideoWriter_fourcc(*"x264"),
